@@ -134,8 +134,8 @@ class _MainViewState extends State<MainView> {
       onWillPop: _popScope,
       child: Material(
         color: widget.editorBackgroundColor == Colors.transparent
-            ? Colors.black
-            : widget.editorBackgroundColor ?? Colors.black,
+            ? Colors.white
+            : widget.editorBackgroundColor ?? Colors.white,
         child: Consumer6<
             ControlNotifier,
             DraggableWidgetNotifier,
