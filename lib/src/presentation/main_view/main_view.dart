@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gallery_media_picker/gallery_media_picker.dart';
+//import 'package:gallery_media_picker/gallery_media_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:stories_editor/src/domain/models/editable_items.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/control_provider.dart';
@@ -402,62 +402,63 @@ class _MainViewState extends State<MainView> {
                     ),
                   ],
                 ),
-                gallery: GalleryMediaPicker(
-                  mediaPickerParams: MediaPickerParamsModel(
-                    gridViewController: scrollProvider.gridController,
-                    thumbnailQuality: widget.galleryThumbnailQuality ?? 200,
-                    singlePick: true,
-                    onlyImages: true,
-                    appBarColor: widget.editorBackgroundColor ?? Colors.black,
-                    gridViewPhysics: itemProvider.draggableWidget.isEmpty
-                        ? const NeverScrollableScrollPhysics()
-                        : const ScrollPhysics(),
-                    appBarLeadingWidget: Padding(
-                      padding: const EdgeInsets.only(bottom: 15, right: 15),
-                      child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: AnimatedOnTapButton(
-                          onTap: () {
-                            scrollProvider.pageController.animateToPage(0,
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeIn);
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 2),
-                            decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 1.2,
-                                )),
-                            child: const Text(
-                              'Cancel',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  pathList: (path) {
-                    controlNotifier.mediaPath = path.first.path.toString();
-                    if (controlNotifier.mediaPath.isNotEmpty) {
-                      itemProvider.draggableWidget.insert(
-                          0,
-                          EditableItem()
-                            ..type = ItemType.image
-                            ..position = const Offset(0.0, 0));
-                    }
-                    scrollProvider.pageController.animateToPage(0,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeIn);
-                  },
-                ),
+                gallery: Container()
+                // GalleryMediaPicker(
+                //   mediaPickerParams: MediaPickerParamsModel(
+                //     gridViewController: scrollProvider.gridController,
+                //     thumbnailQuality: widget.galleryThumbnailQuality ?? 200,
+                //     singlePick: true,
+                //     onlyImages: true,
+                //     appBarColor: widget.editorBackgroundColor ?? Colors.black,
+                //     gridViewPhysics: itemProvider.draggableWidget.isEmpty
+                //         ? const NeverScrollableScrollPhysics()
+                //         : const ScrollPhysics(),
+                //     appBarLeadingWidget: Padding(
+                //       padding: const EdgeInsets.only(bottom: 15, right: 15),
+                //       child: Align(
+                //         alignment: Alignment.bottomRight,
+                //         child: AnimatedOnTapButton(
+                //           onTap: () {
+                //             scrollProvider.pageController.animateToPage(0,
+                //                 duration: const Duration(milliseconds: 300),
+                //                 curve: Curves.easeIn);
+                //           },
+                //           child: Container(
+                //             padding: const EdgeInsets.symmetric(
+                //                 horizontal: 8, vertical: 2),
+                //             decoration: BoxDecoration(
+                //                 color: Colors.transparent,
+                //                 borderRadius: BorderRadius.circular(10),
+                //                 border: Border.all(
+                //                   color: Colors.white,
+                //                   width: 1.2,
+                //                 )),
+                //             child: const Text(
+                //               'Cancel',
+                //               style: TextStyle(
+                //                   color: Colors.white,
+                //                   fontSize: 15,
+                //                   fontWeight: FontWeight.w400),
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                //   pathList: (path) {
+                //     controlNotifier.mediaPath = path.first.path.toString();
+                //     if (controlNotifier.mediaPath.isNotEmpty) {
+                //       itemProvider.draggableWidget.insert(
+                //           0,
+                //           EditableItem()
+                //             ..type = ItemType.image
+                //             ..position = const Offset(0.0, 0));
+                //     }
+                //     scrollProvider.pageController.animateToPage(0,
+                //         duration: const Duration(milliseconds: 300),
+                //         curve: Curves.easeIn);
+                //   },
+                // ),
               ),
             );
           },

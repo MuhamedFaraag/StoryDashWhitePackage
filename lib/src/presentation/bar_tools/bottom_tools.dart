@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gallery_media_picker/gallery_media_picker.dart';
+// import 'package:gallery_media_picker/gallery_media_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/control_provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/draggable_widget_notifier.dart';
@@ -46,20 +46,22 @@ class BottomTools extends StatelessWidget {
                             ? ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
                                 child: GestureDetector(
-                                  onTap: () {
-                                    /// scroll to gridView page
-                                    if (controlNotifier.mediaPath.isEmpty) {
-                                      scrollNotifier.pageController
-                                          .animateToPage(1,
-                                              duration: const Duration(
-                                                  milliseconds: 300),
-                                              curve: Curves.ease);
-                                    }
-                                  },
-                                  child: const CoverThumbnail(
-                                    thumbnailQuality: 150,
-                                  ),
-                                ))
+                                    onTap: () {
+                                      /// scroll to gridView page
+                                      if (controlNotifier.mediaPath.isEmpty) {
+                                        scrollNotifier.pageController
+                                            .animateToPage(
+                                                1,
+                                                duration: const Duration(
+                                                    milliseconds: 300),
+                                                curve: Curves.ease);
+                                      }
+                                    },
+                                    child: const SizedBox.shrink()
+                                    // const CoverThumbnail(
+                                    //   thumbnailQuality: 150,
+                                    // ),
+                                    ))
 
                             /// return clear [imagePath] provider
                             : GestureDetector(

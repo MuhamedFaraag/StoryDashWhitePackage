@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:image/image.dart' as img;
+// import 'package:image/image.dart' as img;
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
@@ -10,7 +10,7 @@ class ColorDetection {
   final StreamController<Color>? stateController;
   final GlobalKey? paintKey;
 
-  img.Image? photo;
+  //img.Image? photo;
 
   ColorDetection({
     required this.currentKey,
@@ -19,9 +19,9 @@ class ColorDetection {
   });
 
   Future<dynamic> searchPixel(Offset globalPosition) async {
-    if (photo == null) {
-      await loadSnapshotBytes();
-    }
+    // if (photo == null) {
+    //   await loadSnapshotBytes();
+    // }
     return _calculatePixel(globalPosition);
   }
 
@@ -33,7 +33,9 @@ class ColorDetection {
     double py = localPosition.dy;
 
     //int pixel32 = photo!.getPixelSafe(px.toInt(), py.toInt());
-    int pixel32 = photo!.getPixelSafe(px.toInt(), py.toInt());
+    int pixel32 =0;
+    //photo!.getPixelSafe(px.toInt(), py.toInt());
+
     int hex = abgrToArgb(pixel32);
 
     stateController!.add(Color(hex));
@@ -52,8 +54,8 @@ class ColorDetection {
 
   void setImageBytes(ByteData imageBytes) {
     Uint8List values = imageBytes.buffer.asUint8List();
-    photo = null;
-    photo = img.decodeImage(values);
+    // photo = null;
+    // photo = img.decodeImage(values);
   }
 }
 
