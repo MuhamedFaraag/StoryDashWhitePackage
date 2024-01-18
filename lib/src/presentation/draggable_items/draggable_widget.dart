@@ -4,7 +4,7 @@ import 'package:align_positioned/align_positioned.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:modal_gif_picker/modal_gif_picker.dart';
+//import 'package:modal_gif_picker/modal_gif_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:stories_editor/src/domain/models/editable_items.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/control_provider.dart';
@@ -118,16 +118,16 @@ class DraggableWidget extends StatelessWidget {
             alignment: Alignment.center,
             children: [
               /// create Gif widget
-              Center(
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.transparent),
-                  child: GiphyRenderImage.original(gif: draggableWidget.gif),
-                ),
-              ),
+              // Center(
+              //   child: Container(
+              //     alignment: Alignment.center,
+              //     padding: const EdgeInsets.all(8),
+              //     decoration: BoxDecoration(
+              //         borderRadius: BorderRadius.circular(10),
+              //         color: Colors.transparent),
+              //     child: GiphyRenderImage.original(gif: draggableWidget.gif),
+              //   ),
+              // ),
             ],
           ),
         );
