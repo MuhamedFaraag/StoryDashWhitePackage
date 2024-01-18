@@ -132,11 +132,11 @@ class _MainViewState extends State<MainView> {
     final ScreenUtil screenUtil = ScreenUtil();
     return WillPopScope(
       onWillPop: _popScope,
-      child: Material(
-        color: widget.editorBackgroundColor == Colors.transparent
-            ? Colors.white
-            : widget.editorBackgroundColor ?? Colors.white,
-        child: Consumer6<
+      child: Scaffold(
+        // color: widget.editorBackgroundColor == Colors.transparent
+        //     ? Colors.white
+        //     : widget.editorBackgroundColor ?? Colors.white,
+        body: Consumer6<
             ControlNotifier,
             DraggableWidgetNotifier,
             ScrollNotifier,
