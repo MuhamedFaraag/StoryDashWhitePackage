@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//import 'package:modal_gif_picker/modal_gif_picker.dart';
+import 'package:modal_gif_picker/modal_gif_picker.dart';
 import 'package:stories_editor/src/presentation/utils/constants/app_enums.dart';
 
 class EditableItem {
@@ -24,5 +24,5 @@ class EditableItem {
   TextAnimationType animationType = TextAnimationType.none;
 
   /// Gif
- // GiphyGif gif = GiphyGif(id: '0');
+  GiphyGif gif = GiphyGif(id: '0');
 }
