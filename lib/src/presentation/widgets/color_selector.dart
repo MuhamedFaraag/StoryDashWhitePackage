@@ -19,13 +19,13 @@ class ColorSelector extends StatelessWidget {
           height: screenUtil.screenWidth * 0.1,
           width: screenUtil.screenWidth,
           alignment: Alignment.center,
-          padding: const EdgeInsets.only(left: 5, right: 5),
+        //  padding: const EdgeInsets.only(left: 5, right: 5),
           child: Row(
             children: [
               /// current selected color
               Container(
                 height: 120.w,
-                width: 120.w,
+                width: 40.w,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     color: controlProvider.isPainting
@@ -66,10 +66,10 @@ class ColorSelector extends StatelessWidget {
                             }
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10.w),
+                            padding: EdgeInsets.symmetric(horizontal: 5.w),
                             child: Container(
                               height: 100.w,
-                              width: 100.w,
+                              width: 30.w,
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   color: controlProvider.colorList![index],
