@@ -73,9 +73,9 @@ class _StoriesEditorState extends State<StoriesEditor> {
   @override
   void initState() {
     Paint.enableDithering = true;
-     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent
-     ));
+     // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+     //  statusBarColor: Colors.transparent
+     // ));
     super.initState();
   }
 
@@ -94,7 +94,7 @@ class _StoriesEditorState extends State<StoriesEditor> {
         return false;
       },
       child: ScreenUtilInit(
-       designSize: const Size(1080, 1920),
+        designSize:const Size(360, 690),
         builder: (_, __) => MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (_) => ControlNotifier()),
