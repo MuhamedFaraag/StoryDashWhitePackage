@@ -23,7 +23,7 @@ class TopTools extends StatefulWidget {
       {Key? key,
       required this.contentKey,
       required this.context,
-        required this.language,
+      required this.language,
       required this.isDrag})
       : super(key: key);
 
@@ -55,7 +55,8 @@ class _TopToolsState extends State<TopTools> {
                     backGroundColor: Colors.black12,
                     onTap: () async {
                       var res = await exitDialog(
-                          context: widget.context,language: widget.language,
+                          context: widget.context,
+                          language: widget.language,
                           contentKey: widget.contentKey);
                       if (res) {
                         Navigator.pop(context);
@@ -96,17 +97,18 @@ class _TopToolsState extends State<TopTools> {
                       }
                     }),
                 widget.isDrag
-                    ? ToolButton(
-                        child: const ImageIcon(
-                          AssetImage('assets/icons/stickers.png',
-                              package: 'stories_editor'),
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                        backGroundColor: Colors.black12,
-                        onTap: () => createGiphyItem(
-                            context: context,
-                            giphyKey: controlNotifier.giphyKey))
+                    ?const SizedBox(height: 0,width: 0,)
+                    // ToolButton(
+                    //         child: const ImageIcon(
+                    //           AssetImage('assets/icons/stickers.png',
+                    //               package: 'stories_editor'),
+                    //           color: Colors.white,
+                    //           size: 20,
+                    //         ),
+                    //         backGroundColor: Colors.black12,
+                    //         onTap: () => createGiphyItem(
+                    //             context: context,
+                    //             giphyKey: controlNotifier.giphyKey))
                     :
 
                     /// text align
@@ -155,23 +157,23 @@ class _TopToolsState extends State<TopTools> {
                           controlNotifier.isPainting = true;
                           //createLinePainting(context: context);
                         })
-                      : ToolButton(
-                          child: const Padding(
-                            padding: EdgeInsets.all(6.0),
-                            child: ImageIcon(
-                              AssetImage('assets/icons/font_backGround.png',
-                                  package: 'stories_editor'),
-                              color: Colors.white,
-                            ),
+                    : ToolButton(
+                        child: const Padding(
+                          padding: EdgeInsets.all(6.0),
+                          child: ImageIcon(
+                            AssetImage('assets/icons/font_backGround.png',
+                                package: 'stories_editor'),
+                            color: Colors.white,
                           ),
-                          backGroundColor: Colors.black12,
-                          onTap: () {
-                            editorNotifier.setIsFamilyNotDrag =
-                                !editorNotifier.isFontFamilyNotDrag;
-                            editorNotifier.setIsBackGroundNotDrag = false;
-                            editorNotifier.setFontColorNotDrag = false;
-                          },
                         ),
+                        backGroundColor: Colors.black12,
+                        onTap: () {
+                          editorNotifier.setIsFamilyNotDrag =
+                              !editorNotifier.isFontFamilyNotDrag;
+                          editorNotifier.setIsBackGroundNotDrag = false;
+                          editorNotifier.setFontColorNotDrag = false;
+                        },
+                      ),
 
                 widget.isDrag
                     ? ToolButton(
