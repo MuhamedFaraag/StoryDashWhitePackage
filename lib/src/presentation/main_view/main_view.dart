@@ -60,12 +60,16 @@ class MainView extends StatefulWidget {
   /// Disable Drag
   final bool isDrag;
 
+  /// Language
+  final String language;
+
   /// editor custom color palette list
   List<Color>? colorList;
   MainView(
       {Key? key,
       required this.giphyKey,
       required this.onDone,
+      required this.language,
       required this.isDrag,
       this.middleBottomWidget,
       this.colorList,
@@ -389,6 +393,7 @@ class _MainViewState extends State<MainView> {
                               visible: controlNotifier.isTextEditing,
                               child: TextEditor(
                                 context: context,
+                                language: widget.language,
                                 isDrag: widget.isDrag,
                               ),
                             ),
