@@ -16,7 +16,8 @@ import 'package:stories_editor/src/presentation/widgets/size_slider_selector.dar
 class TextEditor extends StatefulWidget {
   final BuildContext context;
   final bool isDrag;
-  const TextEditor({Key? key, required this.context,required this.isDrag}) : super(key: key);
+  final String language;
+  const TextEditor({Key? key, required this.context,required this.isDrag,required this.language}) : super(key: key);
 
   @override
   State<TextEditor> createState() => _TextEditorState();
@@ -78,6 +79,7 @@ class _TextEditorState extends State<TextEditor> {
                             alignment: Alignment.topCenter,
                             child: TopTextTools(
                               isDrag: widget.isDrag,
+                              language: widget.language,
                               onDone: () => _onTap(
                                   context, controlNotifier, editorNotifier),
                             )),
