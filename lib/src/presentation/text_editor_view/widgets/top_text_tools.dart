@@ -7,7 +7,12 @@ import 'package:stories_editor/src/presentation/widgets/tool_button.dart';
 class TopTextTools extends StatelessWidget {
   final void Function() onDone;
   final bool isDrag;
-  const TopTextTools({Key? key, required this.onDone, required this.isDrag})
+  final String language;
+  const TopTextTools(
+      {Key? key,
+      required this.onDone,
+      required this.isDrag,
+      required this.language})
       : super(key: key);
 
   @override
@@ -156,9 +161,9 @@ class TopTextTools extends StatelessWidget {
                           color: Colors.transparent,
                           border: Border.all(color: Colors.white, width: 1.5),
                           borderRadius: BorderRadius.circular(15)),
-                      child: const Text(
-                        'Done',
-                        style: TextStyle(
+                      child: Text(
+                        language == "en_US" ? 'Done' : "تم",
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
