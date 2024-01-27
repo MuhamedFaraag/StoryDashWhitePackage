@@ -349,8 +349,8 @@ class _MainViewState extends State<MainView> {
                               IgnorePointer(
                                 ignoring: true,
                                 child: Align(
-                                  alignment: const Alignment(0, -0.1),
-                                  child: Text('Tap to type',
+                                  alignment:const  Alignment(0, -0.1),
+                                  child: Text(widget.language=="en_US"?'Tap to type':"أكتب شئ",
                                       style: TextStyle(
                                           fontFamily: 'Alegreya',
                                           package: 'stories_editor',
