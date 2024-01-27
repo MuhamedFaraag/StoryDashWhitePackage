@@ -376,6 +376,7 @@ class _MainViewState extends State<MainView> {
                                   child: TopTools(
                                     contentKey: contentKey,
                                     isDrag: widget.isDrag,
+                                    language: widget.language,
                                     context: context,
                                   )),
                             ),
@@ -438,7 +439,7 @@ class _MainViewState extends State<MainView> {
     /// show close dialog
     else if (!controlNotifier.isTextEditing && !controlNotifier.isPainting) {
       return widget.onBackPress ??
-          exitDialog(context: context, contentKey: contentKey);
+          exitDialog(context: context, contentKey: contentKey,language: widget.language);
     }
     return false;
   }
