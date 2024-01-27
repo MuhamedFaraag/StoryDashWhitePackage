@@ -46,6 +46,9 @@ class StoriesEditor extends StatefulWidget {
   /// editor background color
   final Color? editorBackgroundColor;
 
+  /// Language
+  final String language;
+
   /// gallery thumbnail quality
   final int? galleryThumbnailQuality;
   final bool isDrag;
@@ -54,6 +57,7 @@ class StoriesEditor extends StatefulWidget {
       required this.giphyKey,
       required this.onDone,
       required this.isDrag,
+      required this.language,
       this.middleBottomWidget,
       this.colorList,
       this.gradientColors,
@@ -73,9 +77,8 @@ class _StoriesEditorState extends State<StoriesEditor> {
   @override
   void initState() {
     Paint.enableDithering = true;
-     // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-     //  statusBarColor: Colors.transparent
-     // ));
+    SystemChrome.setSystemUIOverlayStyle(
+        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     super.initState();
   }
 
@@ -94,7 +97,7 @@ class _StoriesEditorState extends State<StoriesEditor> {
         return false;
       },
       child: ScreenUtilInit(
-        designSize:const Size(360, 690),
+        designSize: const Size(360, 690),
         builder: (_, __) => MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (_) => ControlNotifier()),
@@ -107,6 +110,7 @@ class _StoriesEditorState extends State<StoriesEditor> {
           child: MainView(
             isDrag: widget.isDrag,
             giphyKey: widget.giphyKey,
+            language: widget.language,
             onDone: widget.onDone,
             fontFamilyList: widget.fontFamilyList,
             isCustomFontList: widget.isCustomFontList,
