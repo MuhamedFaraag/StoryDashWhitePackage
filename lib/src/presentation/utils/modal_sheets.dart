@@ -38,7 +38,8 @@ Future createGiphyItem(
 }
 
 /// custom exit dialog
-Future<bool> exitDialog({required context, required contentKey}) async {
+Future<bool> exitDialog(
+    {required context, required contentKey, required String language}) async {
   return (await showDialog(
         context: context,
         barrierColor: Colors.black38,
@@ -68,9 +69,11 @@ Future<bool> exitDialog({required context, required contentKey}) async {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  const Text(
-                    'Discard Edits?',
-                    style: TextStyle(
+                  Text(
+                    language == "en_US"
+                        ? 'Discard Edits?'
+                        : "هل تريد تجاهل التعديلات؟",
+                    style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
@@ -79,9 +82,11 @@ Future<bool> exitDialog({required context, required contentKey}) async {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
-                    "If you go back now, you'll lose all the edits you've made.",
-                    style: TextStyle(
+                  Text(
+                    language == "en_US"
+                        ? "If you go back now, you'll lose all the edits you've made."
+                        : "إذا عدت للخلف الآن، فسوف تفقد جميع التعديلات التي أجريتها.",
+                    style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w400,
                         color: Colors.white54,
@@ -99,7 +104,7 @@ Future<bool> exitDialog({required context, required contentKey}) async {
                       Navigator.of(context).pop(true);
                     },
                     child: Text(
-                      'Discard',
+                      language == "en_US" ? 'Discard' : "تراجع",
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.redAccent.shade200,
@@ -162,9 +167,9 @@ Future<bool> exitDialog({required context, required contentKey}) async {
                     onTap: () {
                       Navigator.of(context).pop(false);
                     },
-                    child: const Text(
-                      'Cancel',
-                      style: TextStyle(
+                    child:  Text(
+                      language == "en_US" ?  'Cancel':"إلغاء",
+                      style:const TextStyle(
                           fontSize: 16,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
