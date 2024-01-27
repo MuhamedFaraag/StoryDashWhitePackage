@@ -17,11 +17,13 @@ import '../utils/constants/app_enums.dart';
 class TopTools extends StatefulWidget {
   final GlobalKey contentKey;
   final BuildContext context;
+  final String language;
   final bool isDrag;
   const TopTools(
       {Key? key,
       required this.contentKey,
       required this.context,
+        required this.language,
       required this.isDrag})
       : super(key: key);
 
@@ -53,7 +55,7 @@ class _TopToolsState extends State<TopTools> {
                     backGroundColor: Colors.black12,
                     onTap: () async {
                       var res = await exitDialog(
-                          context: widget.context,
+                          context: widget.context,language: widget.language,
                           contentKey: widget.contentKey);
                       if (res) {
                         Navigator.pop(context);
@@ -153,23 +155,23 @@ class _TopToolsState extends State<TopTools> {
                           controlNotifier.isPainting = true;
                           //createLinePainting(context: context);
                         })
-                    : ToolButton(
-                        child: const Padding(
-                          padding: EdgeInsets.only(left: 5, bottom: 3),
-                          child: ImageIcon(
-                            AssetImage('assets/icons/font_backGround.png',
-                                package: 'stories_editor'),
-                            color: Colors.white,
+                      : ToolButton(
+                          child: const Padding(
+                            padding: EdgeInsets.all(6.0),
+                            child: ImageIcon(
+                              AssetImage('assets/icons/font_backGround.png',
+                                  package: 'stories_editor'),
+                              color: Colors.white,
+                            ),
                           ),
+                          backGroundColor: Colors.black12,
+                          onTap: () {
+                            editorNotifier.setIsFamilyNotDrag =
+                                !editorNotifier.isFontFamilyNotDrag;
+                            editorNotifier.setIsBackGroundNotDrag = false;
+                            editorNotifier.setFontColorNotDrag = false;
+                          },
                         ),
-                        backGroundColor: Colors.black12,
-                        onTap: () {
-                          editorNotifier.setIsFamilyNotDrag =
-                              !editorNotifier.isFontFamilyNotDrag;
-                          editorNotifier.setIsBackGroundNotDrag = false;
-                          editorNotifier.setFontColorNotDrag = false;
-                        },
-                      ),
 
                 widget.isDrag
                     ? ToolButton(
