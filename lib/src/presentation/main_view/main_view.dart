@@ -350,7 +350,7 @@ class _MainViewState extends State<MainView> {
                                 ignoring: true,
                                 child: Align(
                                   alignment:const  Alignment(0, -0.1),
-                                  child: Text(widget.language=="en_US"?'Tap to type':"أكتب شئ",
+                                  child: Text(widget.language=="en_US"?'Tap to type':"اكتب هنا",
                                       style: TextStyle(
                                           fontFamily: 'Alegreya',
                                           package: 'stories_editor',
