@@ -55,7 +55,7 @@ Future<bool> exitDialog(
               padding: const EdgeInsets.only(
                   top: 25, bottom: 5, right: 20, left: 20),
               alignment: Alignment.center,
-              height: 280,
+              height: 300,
               decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   color: HexColor.fromHex('#262626'),
@@ -78,6 +78,7 @@ Future<bool> exitDialog(
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
                         letterSpacing: 0.5),
+                    textAlign: TextAlign.center,
                   ),
                   const SizedBox(
                     height: 20,
@@ -104,7 +105,7 @@ Future<bool> exitDialog(
                       Navigator.of(context).pop(true);
                     },
                     child: Text(
-                      language == "en_US" ? 'Discard' : "تراجع",
+                      language == "en_US" ? 'Discard' : "تجاهل",
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.redAccent.shade200,
