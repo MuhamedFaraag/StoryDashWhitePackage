@@ -49,138 +49,151 @@ Future<bool> exitDialog(
           elevation: 0,
           insetAnimationDuration: const Duration(milliseconds: 300),
           insetAnimationCurve: Curves.ease,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: Container(
-              padding: const EdgeInsets.only(
-                  top: 25, bottom: 5, right: 20, left: 20),
-              alignment: Alignment.center,
-              height: 320,
-              decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: HexColor.fromHex('#262626'),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.white10,
-                        offset: Offset(0, 1),
-                        blurRadius: 4),
-                  ]),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(
-                    language == "en_US"
-                        ? 'Discard Edits?'
-                        : "هل تريد تجاهل التعديلات؟",
-                    style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                        letterSpacing: 0.5),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    language == "en_US"
-                        ? "If you go back now, you'll lose all the edits you've made."
-                        : "إذا عدت للخلف الآن، فسوف تفقد جميع التعديلات التي أجريتها.",
-                    style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white54,
-                        letterSpacing: 0.1),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: Container(
+                  padding: const EdgeInsets.only(
+                      top: 25, bottom: 5, right: 20, left: 20),
+                  alignment: Alignment.center,
+                  height: 280,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      color: HexColor.fromHex('#262626'),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Colors.white10,
+                            offset: Offset(0, 1),
+                            blurRadius: 4),
+                      ]),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        language == "en_US"
+                            ? 'Discard Edits?'
+                            : "هل تريد تجاهل التعديلات؟",
+                        style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                            letterSpacing: 0.5),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        language == "en_US"
+                            ? "If you go back now, you'll lose all the edits you've made."
+                            : "إذا عدت للخلف الآن، فسوف تفقد جميع التعديلات التي أجريتها.",
+                        style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white54,
+                            letterSpacing: 0.1),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
 
-                  /// discard
-                  AnimatedOnTapButton(
-                    onTap: () async {
-                      _resetDefaults(context: context);
-                      Navigator.of(context).pop(true);
-                    },
-                    child: Text(
-                      language == "en_US" ? 'Discard' : "تجاهل",
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.redAccent.shade200,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.1),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 22,
-                    child: Divider(
-                      color: Colors.white10,
-                    ),
-                  ),
+                      /// discard
+                      AnimatedOnTapButton(
+                        onTap: () async {
+                          _resetDefaults(context: context);
+                          Navigator.of(context).pop(true);
+                        },
+                        child: Text(
+                          language == "en_US" ? 'Discard Edits' : "تجاهل التعديلات",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.redAccent.shade200,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.1),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      // const SizedBox(
+                      //   height: 22,
+                      //   child: Divider(
+                      //     color: Colors.white10,
+                      //   ),
+                      // ),
 
-                  // /// save and exit
-                  // AnimatedOnTapButton(
-                  //   onTap: () async {
-                  //     final _paintingProvider =
-                  //         Provider.of<PaintingNotifier>(context, listen: false);
-                  //     final _widgetProvider =
-                  //         Provider.of<DraggableWidgetNotifier>(context,
-                  //             listen: false);
-                  //     if (_paintingProvider.lines.isNotEmpty ||
-                  //         _widgetProvider.draggableWidget.isNotEmpty) {
-                  //       /// save image
-                  //       var response = await takePicture(
-                  //           contentKey: contentKey,
-                  //           context: context,
-                  //           saveToGallery: true);
-                  //       if (response) {
-                  //         _dispose(
-                  //             context: context, message: 'Successfully saved');
-                  //       } else {
-                  //         _dispose(context: context, message: 'Error');
-                  //       }
-                  //     } else {
-                  //       _dispose(context: context, message: 'Draft Empty');
-                  //     }
-                  //   },
-                  //   child: const Text(
-                  //     'Save Draft',
-                  //     style: TextStyle(
-                  //         fontSize: 16,
-                  //         color: Colors.white,
-                  //         fontWeight: FontWeight.bold,
-                  //         letterSpacing: 0.5),
-                  //     textAlign: TextAlign.center,
-                  //   ),
-                  // ),
-                  // const SizedBox(
-                  //   height: 22,
-                  //   child: Divider(
-                  //     color: Colors.white10,
-                  //   ),
-                  // ),
+                      // /// save and exit
+                      // AnimatedOnTapButton(
+                      //   onTap: () async {
+                      //     final _paintingProvider =
+                      //         Provider.of<PaintingNotifier>(context, listen: false);
+                      //     final _widgetProvider =
+                      //         Provider.of<DraggableWidgetNotifier>(context,
+                      //             listen: false);
+                      //     if (_paintingProvider.lines.isNotEmpty ||
+                      //         _widgetProvider.draggableWidget.isNotEmpty) {
+                      //       /// save image
+                      //       var response = await takePicture(
+                      //           contentKey: contentKey,
+                      //           context: context,
+                      //           saveToGallery: true);
+                      //       if (response) {
+                      //         _dispose(
+                      //             context: context, message: 'Successfully saved');
+                      //       } else {
+                      //         _dispose(context: context, message: 'Error');
+                      //       }
+                      //     } else {
+                      //       _dispose(context: context, message: 'Draft Empty');
+                      //     }
+                      //   },
+                      //   child: const Text(
+                      //     'Save Draft',
+                      //     style: TextStyle(
+                      //         fontSize: 16,
+                      //         color: Colors.white,
+                      //         fontWeight: FontWeight.bold,
+                      //         letterSpacing: 0.5),
+                      //     textAlign: TextAlign.center,
+                      //   ),
+                      // ),
+                      // const SizedBox(
+                      //   height: 22,
+                      //   child: Divider(
+                      //     color: Colors.white10,
+                      //   ),
+                      // ),
 
-                  ///cancel
-                  AnimatedOnTapButton(
-                    onTap: () {
-                      Navigator.of(context).pop(false);
-                    },
-                    child:  Text(
-                      language == "en_US" ?  'Cancel':"إلغاء",
-                      style:const TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.5),
-                      textAlign: TextAlign.center,
-                    ),
+                      // ///cancel
+                      // AnimatedOnTapButton(
+                      //   onTap: () {
+                      //     Navigator.of(context).pop(false);
+                      //   },
+                      //   child:  Text(
+                      //     language == "en_US" ?  'Cancel':"إلغاء",
+                      //     style:const TextStyle(
+                      //         fontSize: 16,
+                      //         color: Colors.white,
+                      //         fontWeight: FontWeight.bold,
+                      //         letterSpacing: 0.5),
+                      //     textAlign: TextAlign.center,
+                      //   ),
+                      // ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+              GestureDetector(
+                onTap: (){
+                  Navigator.of(context).pop();
+                },
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 50.0,vertical: 20),
+                  child: Icon(Icons.clear,color: Colors.red,),
+                ),
+              )
+            ],
           ),
         ),
       )) ??
