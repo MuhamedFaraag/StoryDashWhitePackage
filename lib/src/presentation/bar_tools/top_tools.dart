@@ -11,6 +11,7 @@ import 'package:stories_editor/src/presentation/widgets/animated_onTap_button.da
 import 'package:stories_editor/src/presentation/widgets/tool_button.dart';
 
 import '../../domain/models/editable_items.dart';
+import '../../domain/providers/notifiers/scroll_notifier.dart';
 import '../../domain/providers/notifiers/text_editing_notifier.dart';
 import '../utils/constants/app_enums.dart';
 
@@ -34,10 +35,10 @@ class TopTools extends StatefulWidget {
 class _TopToolsState extends State<TopTools> {
   @override
   Widget build(BuildContext context) {
-    return Consumer4<ControlNotifier, PaintingNotifier, DraggableWidgetNotifier,
-        TextEditingNotifier>(
+    return Consumer5<ControlNotifier, PaintingNotifier, DraggableWidgetNotifier,
+        TextEditingNotifier, ScrollNotifier>(
       builder: (_, controlNotifier, paintingNotifier, itemNotifier,
-          editorNotifier, __) {
+          editorNotifier, scrollNotifier, __) {
         return SafeArea(
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 20.w),
@@ -62,15 +63,15 @@ class _TopToolsState extends State<TopTools> {
                         Navigator.pop(context);
                       }
                     }),
-                if (controlNotifier.mediaPath.isEmpty)
-                  _selectColor(
-                      controlProvider: controlNotifier,
-                      onTap: () {
-                        editorNotifier.setIsFamilyNotDrag = false;
-                        editorNotifier.setFontColorNotDrag = false;
-                        editorNotifier.setIsBackGroundNotDrag =
-                            !editorNotifier.isBackGroundNotDrag;
-                      }),
+                //   if (controlNotifier.mediaPath.isEmpty)
+                _selectColor(
+                    controlProvider: controlNotifier,
+                    onTap: () {
+                      editorNotifier.setIsFamilyNotDrag = false;
+                      editorNotifier.setFontColorNotDrag = false;
+                      editorNotifier.setIsBackGroundNotDrag =
+                          !editorNotifier.isBackGroundNotDrag;
+                    }),
                 ToolButton(
                     child: const ImageIcon(
                       AssetImage('assets/icons/download.png',
@@ -97,18 +98,33 @@ class _TopToolsState extends State<TopTools> {
                       }
                     }),
                 widget.isDrag
-                    ?const SizedBox(height: 0,width: 0,)
-                    // ToolButton(
-                    //         child: const ImageIcon(
-                    //           AssetImage('assets/icons/stickers.png',
-                    //               package: 'stories_editor'),
-                    //           color: Colors.white,
-                    //           size: 20,
-                    //         ),
-                    //         backGroundColor: Colors.black12,
-                    //         onTap: () => createGiphyItem(
-                    //             context: context,
-                    //             giphyKey: controlNotifier.giphyKey))
+                    ? ToolButton(
+                        child: controlNotifier.mediaPath.isNotEmpty
+                            ? const Icon(
+                                Icons.delete,
+                                color: Colors.white,
+                              )
+                            : const ImageIcon(
+                                AssetImage('assets/icons/photo_filter.png',
+                                    package: 'stories_editor'),
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                        backGroundColor: Colors.black12,
+                        onTap: () {
+                          if (controlNotifier.mediaPath.isEmpty) {
+                            scrollNotifier.pageController.animateToPage(1,
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.ease);
+                          } else {
+                            editorNotifier.setIsFamilyNotDrag = false;
+                            editorNotifier.setIsBackGroundNotDrag = false;
+                            editorNotifier.setFontColorNotDrag = false;
+                            controlNotifier.mediaPath = '';
+                            itemNotifier.draggableWidget.removeAt(0);
+
+                          }
+                        })
                     :
 
                     /// text align
