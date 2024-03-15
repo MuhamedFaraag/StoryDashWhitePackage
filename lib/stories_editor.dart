@@ -51,23 +51,41 @@ class StoriesEditor extends StatefulWidget {
 
   /// gallery thumbnail quality
   final int? galleryThumbnailQuality;
+
+  /// on done
+  final Function(Map<String, String>)? onShare;
+
+  /// on error
+  final Function()? error;
+
+  /// Disable Drag
   final bool isDrag;
-  const StoriesEditor(
-      {Key? key,
-      required this.giphyKey,
-      required this.onDone,
-      required this.isDrag,
-      required this.language,
-      this.middleBottomWidget,
-      this.colorList,
-      this.gradientColors,
-      this.fontFamilyList,
-      this.isCustomFontList,
-      this.onBackPress,
-      this.onDoneButtonStyle,
-      this.editorBackgroundColor,
-      this.galleryThumbnailQuality})
-      : super(key: key);
+
+  /// for edit
+  final bool isEdit;
+
+  /// for edit styles
+  final List<Map<String, dynamic>> editStyles;
+  const StoriesEditor({
+    Key? key,
+    required this.giphyKey,
+    required this.onDone,
+    required this.isDrag,
+    required this.language,
+    required this.isEdit,
+    required this.editStyles,
+    this.error,
+    this.middleBottomWidget,
+    this.onShare,
+    this.colorList,
+    this.gradientColors,
+    this.fontFamilyList,
+    this.isCustomFontList,
+    this.onBackPress,
+    this.onDoneButtonStyle,
+    this.editorBackgroundColor,
+    this.galleryThumbnailQuality,
+  }) : super(key: key);
 
   @override
   _StoriesEditorState createState() => _StoriesEditorState();
@@ -117,6 +135,10 @@ class _StoriesEditorState extends State<StoriesEditor> {
             middleBottomWidget: widget.middleBottomWidget,
             gradientColors: widget.gradientColors,
             colorList: widget.colorList,
+            isEdit: widget.isEdit,
+            editStyles: widget.editStyles,
+            error: widget.error,
+            onShare: widget.onShare,
             onDoneButtonStyle: widget.onDoneButtonStyle,
             onBackPress: widget.onBackPress,
             editorBackgroundColor: widget.editorBackgroundColor,
