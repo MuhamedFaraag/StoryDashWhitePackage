@@ -1,6 +1,4 @@
 // ignore_for_file: must_be_immutable
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,11 +17,11 @@ import 'package:stories_editor/src/presentation/draggable_items/delete_item.dart
 import 'package:stories_editor/src/presentation/draggable_items/draggable_widget.dart';
 import 'package:stories_editor/src/presentation/painting_view/painting.dart';
 import 'package:stories_editor/src/presentation/text_editor_view/TextEditor.dart';
+import 'package:stories_editor/src/presentation/utils/Extensions/hexColor.dart';
 import 'package:stories_editor/src/presentation/utils/constants/app_enums.dart';
 import 'package:stories_editor/src/presentation/utils/modal_sheets.dart';
 import 'package:stories_editor/src/presentation/widgets/scrollable_pageView.dart';
 import '../../domain/models/painting_model.dart';
-import '../bar_tools/bottom_tools.dart';
 import '../painting_view/widgets/sketcher.dart';
 import '../text_editor_view/widgets/background_selector.dart';
 import '../text_editor_view/widgets/font_selector.dart';
@@ -69,12 +67,29 @@ class MainView extends StatefulWidget {
 
   /// editor custom color palette list
   List<Color>? colorList;
+
+  /// on done
+  final Function(Map<String, String>)? onShare;
+
+  /// on done
+  final void Function()? error;
+
+  /// for edit
+  final bool isEdit;
+
+  /// for edit styles
+  List<Map<String, dynamic>> editStyles;
+
   MainView(
       {Key? key,
       required this.giphyKey,
       required this.onDone,
       required this.language,
       required this.isDrag,
+      required this.isEdit,
+      required this.editStyles,
+      this.onShare,
+      this.error,
       this.middleBottomWidget,
       this.colorList,
       this.isCustomFontList,
@@ -124,6 +139,31 @@ class _MainViewState extends State<MainView> {
       }
       if (widget.colorList != null) {
         _control.colorList = widget.colorList;
+      }
+      if (widget.isEdit) {
+        Provider.of<ControlNotifier>(context, listen: false).gradientIndex =
+            int.tryParse(widget.editStyles[2]['background-color-index']) ?? 0;
+
+        Provider.of<DraggableWidgetNotifier>(context, listen: false)
+            .draggableWidget
+            .add(
+              EditableItem()
+                ..type = ItemType.text
+                ..text = widget.editStyles.first['text']
+                ..textColor =
+                    HexColor.fromHex(widget.editStyles[1]['text-color'])
+                ..fontFamily =
+                    int.tryParse(widget.editStyles.last['text-family-index']) ??
+                        0
+                ..fontSize =
+                    double.tryParse(widget.editStyles[3]['text-size']) ?? 16.0
+                ..textAlign = widget.editStyles[4]['text-align'] == "center"
+                    ? TextAlign.center
+                    : widget.editStyles[4]['text-align'] == "right"
+                        ? TextAlign.right
+                        : TextAlign.left,
+            );
+
       }
     });
     super.initState();
@@ -231,15 +271,15 @@ class _MainViewState extends State<MainView> {
                                             PhotoView.customChild(
                                               child: Container(),
                                               backgroundDecoration:
-                                                   BoxDecoration(
+                                                  BoxDecoration(
                                                       gradient: LinearGradient(
-                                                        colors: controlNotifier
-                                                            .gradientColors![
-                                                        controlNotifier
-                                                            .gradientIndex],
-                                                        begin: Alignment.topLeft,
-                                                        end: Alignment.bottomRight,
-                                                      )),
+                                                colors: controlNotifier
+                                                        .gradientColors![
+                                                    controlNotifier
+                                                        .gradientIndex],
+                                                begin: Alignment.topLeft,
+                                                end: Alignment.bottomRight,
+                                              )),
                                             ),
 
                                             ///list items
@@ -325,7 +365,7 @@ class _MainViewState extends State<MainView> {
                             child: const Align(
                               alignment: Alignment.bottomCenter,
                               child: Padding(
-                                padding: EdgeInsets.only(bottom: 20),
+                                padding: EdgeInsets.only(bottom: 80),
                                 child: FontSelector(),
                               ),
                             ),
@@ -335,7 +375,7 @@ class _MainViewState extends State<MainView> {
                             child: const Align(
                               alignment: Alignment.bottomCenter,
                               child: Padding(
-                                padding: EdgeInsets.only(bottom: 20),
+                                padding: EdgeInsets.only(bottom: 80),
                                 child: BackGroundSelector(),
                               ),
                             ),
@@ -345,7 +385,7 @@ class _MainViewState extends State<MainView> {
                               child: const Align(
                                 alignment: Alignment.bottomCenter,
                                 child: Padding(
-                                  padding: EdgeInsets.only(bottom: 20),
+                                  padding: EdgeInsets.only(bottom: 80),
                                   child: TextColorSelector(),
                                 ),
                               )),
@@ -415,8 +455,88 @@ class _MainViewState extends State<MainView> {
                             visible: controlNotifier.isPainting,
                             child: const Painting(),
                           ),
-                          /// bottom tools
 
+                          /// bottom tools
+                          widget.isDrag
+                              ? const SizedBox.shrink()
+                              : Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: controlNotifier.isTextEditing
+                                      ? const SizedBox.shrink()
+                                      : Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              color: Colors.blue,
+                                            ),
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                3,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.07,
+                                            child: TextButton(
+                                                onPressed: itemProvider
+                                                        .draggableWidget
+                                                        .isNotEmpty
+                                                    ? () {
+                                                        Map<String, String>
+                                                            styles = {
+                                                          "text": itemProvider
+                                                              .draggableWidget
+                                                              .first
+                                                              .text,
+                                                          "text-color":
+                                                              itemProvider
+                                                                  .draggableWidget
+                                                                  .first
+                                                                  .textColor
+                                                                  .toHex(),
+                                                          "background-color-index":
+                                                              controlNotifier
+                                                                  .gradientIndex
+                                                                  .toString(),
+                                                          "text-size":
+                                                              itemProvider
+                                                                  .draggableWidget
+                                                                  .first
+                                                                  .fontSize
+                                                                  .toString(),
+                                                          "text-align":
+                                                              itemProvider
+                                                                  .draggableWidget
+                                                                  .first
+                                                                  .textAlign
+                                                                  .name
+                                                                  .toString(),
+                                                          "text-family-index":
+                                                              itemProvider
+                                                                  .draggableWidget
+                                                                  .first
+                                                                  .fontFamily
+                                                                  .toString(),
+                                                        };
+
+                                                        widget.onShare!(styles);
+                                                      }
+                                                    : (widget.error ?? () {}),
+                                                child: Center(
+                                                  child: Text(
+                                                    widget.language == "en_US"
+                                                        ? "Share"
+                                                        : "مشاركة",
+                                                    style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 18),
+                                                  ),
+                                                )),
+                                          ),
+                                        ),
+                                )
                         ],
                       ),
                     ),
